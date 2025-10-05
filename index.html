@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub - My All-in-One Web Toolkit</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.0/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🌐 Media Hub</h1>
+            <div class="api-key-section">
+                <input type="password" id="apiKey" placeholder="Enter your OpenRouter API Key">
+                <button onclick="saveApiKey()">Save</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- RSS News Section (Main View) -->
+            <section id="rssSection" class="rss-section active">
+                <div class="rss-header">
+                    <h2>📰 Today's News</h2>
+                    <div class="rss-controls">
+                        <input type="url" id="rssUrl" placeholder="Enter RSS feed URL">
+                        <button onclick="addRSSFeed()">Add Feed</button>
+                        <button onclick="summarizeNews()" class="summarize-btn">🤖 AI Summary</button>
+                    </div>
+                </div>
+                <div class="loading" id="rssLoading" style="display: none;">Loading feeds...</div>
+                <div id="rssFeeds" class="rss-feeds"></div>
+            </section>
+
+            <!-- Side Panel -->
+            <aside class="side-panel">
+                <div class="panel-tabs">
+                    <button onclick="switchPanel('none')" class="tab-btn active" title="RSS News">
+                        <span>📰</span>
+                    </button>
+                    <button onclick="switchPanel('ytdlp')" class="tab-btn" title="YouTube Downloader">
+                        <span>📥</span>
+                    </button>
+                    <button onclick="switchPanel('proxy')" class="tab-btn" title="Web Proxy">
+                        <span>🔍</span>
+                    </button>
+                    <button onclick="switchPanel('chat')" class="tab-btn" title="AI Chat">
+                        <span>💬</span>
+                    </button>
+                </div>
+
+                <!-- Expandable Panels -->
+                <!-- YouTube Downloader Panel -->
+                <section id="ytdlpPanel" class="panel">
+                    <h3>📥 YouTube Downloader</h3>
+                    <div class="panel-content">
+                        <div class="input-group">
+                            <input type="url" id="videoUrl" placeholder="Enter YouTube URL">
+                            <button onclick="downloadVideo()">Download</button>
+                        </div>
+                        <div id="ytdlpStatus" class="status"></div>
+                        <div id="ytdlpProgress" class="progress-container" style="display: none;">
+                            <div class="progress-bar">
+                                <div id="progressFill" class="progress-fill"></div>
+                            </div>
+                            <div id="progressText" class="progress-text"></div>
+                        </div>
+                        <div id="videoPreview" class="video-preview"></div>
+                    </div>
+                </section>
+
+                <!-- Web Proxy Panel -->
+                <section id="proxyPanel" class="panel">
+                    <h3>🔍 Web Proxy</h3>
+                    <div class="panel-content">
+                        <div class="input-group">
+                            <input type="url" id="proxyUrl" placeholder="Enter URL to fetch">
+                            <button onclick="fetchViaProxy()">Fetch</button>
+                        </div>
+                        <div id="proxyStatus" class="status"></div>
+                        <div id="proxyContent" class="proxy-content"></div>
+                    </div>
+                </section>
+
+                <!-- AI Chat Panel -->
+                <section id="chatPanel" class="panel">
+                    <h3>💬 AI Chat</h3>
+                    <div class="panel-content">
+                        <div id="chatMessages" class="chat-messages"></div>
+                        <div class="chat-input">
+                            <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
+                            <button onclick="sendMessage()">Send</button>
+                        </div>
+                        <div id="chatStatus" class="status"></div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
